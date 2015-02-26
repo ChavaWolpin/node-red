@@ -629,7 +629,8 @@ RED.editor = (function() {
                             configNode = {type:configType,id:configId,users:[]};
                             for (d in configTypeDef.defaults) {
                                 if (configTypeDef.defaults.hasOwnProperty(d)) {
-                                    configNode[d] = $("#node-config-input-"+d).val();
+                                    //configNode[d] = $("#node-config-input-"+d).val();
+                                    configNode[d] = getInputValue(input);
                                 }
                             }
                             configNode.label = configTypeDef.label;
@@ -798,7 +799,16 @@ RED.editor = (function() {
         $("#subflow-dialog").dialog("option","title","Edit flow "+subflow.name).dialog( "open" );
     }
 
-    
+    function getInputValue(input){
+   		var newValue;
+        if (input.attr('type') === "checkbox") {
+        	newValue = input.prop('checked');
+        } else {
+          	newValue = input.val();
+        }
+        return newValue;	
+    }
+
     
     return {
         edit: showEditDialog,
